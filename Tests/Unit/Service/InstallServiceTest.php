@@ -1,7 +1,7 @@
 <?php
 namespace Gilbertsoft\Lib\Tests\Unit\Service;
 
-use Gilbertsoft\Lib\Service\InstallService;
+use Gilbertsoft\Lib\Tests\Unit\Fixtures\InstallService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
@@ -11,6 +11,11 @@ class InstallServiceTest extends UnitTestCase
 	 * @var InstallService
 	 */
 	protected $installService;
+
+    /**
+     * @var string Extension key
+     */
+    protected $extensionKey;
 
 	/**
 	 * Returns a new InstallService instance.
@@ -22,7 +27,8 @@ class InstallServiceTest extends UnitTestCase
 
 	protected function setUp()
 	{
-		$this->installService = $this->createInstallService($this->getUniqueId('foobar'));
+        $this->extensionKey = $this->getUniqueId('foobar');
+		$this->installService = $this->createInstallService($this->extensionKey);
 	}
 
 	/*
@@ -85,6 +91,7 @@ class InstallServiceTest extends UnitTestCase
 	 */
 	public function showFlashMessage()
 	{
-		$this->assertNull($this->installService->showFlashMessage('test'));
+		$this->assertNull($this->installService->afterInstall($this->extensionKey));
+        $this->assertNull($this->installService->afterUninstall($this->extensionKey));
 	}
 }
