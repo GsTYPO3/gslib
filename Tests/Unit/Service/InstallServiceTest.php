@@ -52,16 +52,7 @@ class InstallServiceTest extends UnitTestCase
 	/**
 	 * @test
 	 * @expectedException \InvalidArgumentException
-	 * @expectedExceptionCode 1491494798
-	 */
-	public function canNotBeCreatedWithoutExtensionKey()
-	{
-		$this->createInstallService();
-	}
-
-	/**
-	 * @test
-	 * @expectedException \InvalidArgumentException
+     * @expectedExceptionCode 1491494798
 	 */
 	public function canNotBeCreatedWithExtensionKeyNull()
 	{
@@ -71,6 +62,7 @@ class InstallServiceTest extends UnitTestCase
 	/**
 	 * @test
 	 * @expectedException \InvalidArgumentException
+     * @expectedExceptionCode 1491494798
 	 */
 	public function canNotBeCreatedWithExtensionKeyEmpty()
 	{
@@ -80,6 +72,7 @@ class InstallServiceTest extends UnitTestCase
 	/**
 	 * @test
 	 * @expectedException \InvalidArgumentException
+     * @expectedExceptionCode 1491494798
 	 */
 	public function canNotBeCreatedWithExtensionKeyNumeric()
 	{
