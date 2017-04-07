@@ -15,14 +15,14 @@ class InstallServiceTest extends UnitTestCase
 	/**
 	 * Returns a new InstallService instance.
 	 */
-	protected static function createInstallService($extensionKey)
+	protected function createInstallService($extensionKey)
 	{
 		return $this->installService = GeneralUtility::makeInstance(InstallService::class, $extensionKey);
 	}
 
 	protected function setUp()
 	{
-		$this->installService = self::createInstallService($this->getUniqueId('foobar'));
+		$this->installService = $this->createInstallService($this->getUniqueId('foobar'));
 	}
 
 	/*
@@ -39,7 +39,7 @@ class InstallServiceTest extends UnitTestCase
 	{
 		$this->assertInstanceOf(
 			InstallService::class,
-			self::createInstallService($this->getUniqueId('foobar'))
+			$this->createInstallService($this->getUniqueId('foobar'))
 		);
 	}
 
@@ -50,7 +50,7 @@ class InstallServiceTest extends UnitTestCase
 	 */
 	public function canNotBeCreatedWithoutExtensionKey()
 	{
-		self::createInstallService();
+		$this->createInstallService();
 	}
 
 	/**
@@ -59,7 +59,7 @@ class InstallServiceTest extends UnitTestCase
 	 */
 	public function canNotBeCreatedWithExtensionKeyNull()
 	{
-		self::createInstallService(null);
+		$this->createInstallService(null);
 	}
 
 	/**
@@ -68,7 +68,7 @@ class InstallServiceTest extends UnitTestCase
 	 */
 	public function canNotBeCreatedWithExtensionKeyEmpty()
 	{
-		self::createInstallService('');
+		$this->createInstallService('');
 	}
 
 	/**
@@ -77,7 +77,7 @@ class InstallServiceTest extends UnitTestCase
 	 */
 	public function canNotBeCreatedWithExtensionKeyNumeric()
 	{
-		self::createInstallService(0);
+		$this->createInstallService(0);
 	}
 
 	/**
