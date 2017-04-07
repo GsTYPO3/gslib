@@ -1,0 +1,39 @@
+{
+    "modules": [],
+    "properties": {
+        "backendModules": [],
+        "description": "GS Library is a collection of utility functions, base classes and other templates for the usage in other extensions.",
+        "emConf": {
+            "category": "misc",
+            "custom_category": "",
+            "dependsOn": "typo3 => 7.6.0-8.9.99",
+            "disableLocalization": true,
+            "disableVersioning": true,
+            "skipGenerateDocumentationTemplate": true,
+            "sourceLanguage": "en",
+            "state": "alpha",
+            "targetVersion": "7.6.0-7.6.99",
+            "version": "0.0.1"
+        },
+        "extensionKey": "gslib",
+        "name": "GS Library",
+        "originalExtensionKey": "gslib",
+        "originalVendorName": "Gilbertsoft",
+        "persons": [
+            {
+                "company": "Gilbertsoft",
+                "email": "typo3@gilbertsoft.org",
+                "name": "Simon Gilli",
+                "role": "Developer"
+            }
+        ],
+        "plugins": [],
+        "vendorName": "Gilbertsoft"
+    },
+    "wires": [],
+    "log": {
+        "last_modified": "2017-04-06 09:46",
+        "extension_builder_version": "7.6.18",
+        "be_user": "Simon Gilli (1)"
+    }
+}
