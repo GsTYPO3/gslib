@@ -1,5 +1,5 @@
 <?php
-namespace Helhum\ExtScaffold\Tests\Unit\Fixtures;
+namespace Gilbertsoft\Lib\Tests\Unit\Fixtures;
 
 class LoadableClass
 {

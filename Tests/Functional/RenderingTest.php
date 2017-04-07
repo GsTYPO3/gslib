@@ -1,5 +1,5 @@
 <?php
-namespace Helhum\ExtScaffold\Tests\Functional;
+namespace Gilbertsoft\Lib\Tests\Functional;
 
 /***************************************************************
  *  Copyright notice
@@ -39,7 +39,7 @@ class RenderingTest extends FunctionalTestCase
     /**
      * @var array
      */
-    protected $testExtensionsToLoad = array('typo3conf/ext/ext_scaffold');
+    protected $testExtensionsToLoad = array('typo3conf/ext/gslib');
 
     /**
      * @var array
@@ -50,7 +50,7 @@ class RenderingTest extends FunctionalTestCase
     {
         parent::setUp();
         $this->importDataSet(__DIR__ . '/Fixtures/Database/pages.xml');
-        $this->setUpFrontendRootPage(1, array('EXT:ext_scaffold/Tests/Functional/Fixtures/Frontend/Basic.ts'));
+        $this->setUpFrontendRootPage(1, array('EXT:gslib/Tests/Functional/Fixtures/Frontend/Basic.ts'));
     }
 
     /**
@@ -59,7 +59,7 @@ class RenderingTest extends FunctionalTestCase
     public function emailViewHelperWorksWithSpamProtection()
     {
         $requestArguments = array('id' => '1');
-        $expectedContent = '<a href="javascript:linkTo_UnCryptMailto(\'ocknvq,kphqBjgnjwo0kq\');">info(AT)helhum(DOT)io</a>';
+        $expectedContent = '<a href="javascript:linkTo_UnCryptMailto(\'ocknvq,kphqBjgnjwo0kq\');">typo3(AT)gilbertsoft(DOT)org</a>';
         $this->assertSame($expectedContent, $this->fetchFrontendResponse($requestArguments)->getContent());
     }
 
