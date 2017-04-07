@@ -28,6 +28,7 @@ namespace Gilbertsoft\Lib\Utility;
  * Use declarations
  */
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 
@@ -50,7 +51,7 @@ class FlashMessageUtility
 	{
 		if (self::$flashMessageService === null) {
 			if (!is_string($className) || empty($className)) {
-				$className = TYPO3\CMS\Core\Messaging\FlashMessageService::class;
+				$className = FlashMessageService::class;
 			}
 			// cache the object for performance-reasons
 			self::$flashMessageService = GeneralUtility::makeInstance($className);
