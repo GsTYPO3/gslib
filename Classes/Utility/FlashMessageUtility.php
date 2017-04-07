@@ -48,14 +48,14 @@ class FlashMessageUtility
 	 */
 	public static function getFlashMessageService($className = '')
 	{
-		if (self::flashMessageService === null) {
+		if (self::$flashMessageService === null) {
 			if (!is_string($className) || empty($className)) {
 				$className = TYPO3\CMS\Core\Messaging\FlashMessageService::class;
 			}
 			// cache the object for performance-reasons
-			self::flashMessageService = GeneralUtility::makeInstance($className);
+			self::$flashMessageService = GeneralUtility::makeInstance($className);
 		}
-		return self::flashMessageService;
+		return self::$flashMessageService;
 	}
 
 	/**

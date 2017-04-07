@@ -64,7 +64,7 @@ class StorageRepositoryUtility
 			}
 
 			// create the Resource Storage 
-			self::getStorageRepository->createLocalStorage(
+			self::getStorageRepository()->createLocalStorage(
 				$name . self::STORAGE_SUFFIX,
 				$name,
 				'relative',

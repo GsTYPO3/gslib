@@ -21,7 +21,7 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace [Vendor]\[Extension]\Service;
+namespace YourVendor\YourExtension\Service;
 
 
 /**
