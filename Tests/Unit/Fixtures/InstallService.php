@@ -44,7 +44,7 @@ class InstallService extends \Gilbertsoft\Lib\Service\AbstractInstallService
 	{
 		if ($extensionKey == $this->extensionKey)
 		{
-			$this->installService->showFlashMessage('afterInstall');
+			$this->showFlashMessage('afterInstall');
 		}
 	}
 
@@ -57,7 +57,7 @@ class InstallService extends \Gilbertsoft\Lib\Service\AbstractInstallService
 	{
 		if ($extensionKey == $this->extensionKey)
 		{
-			$this->installService->showFlashMessage('afterUninstall');
+			$this->showFlashMessage('afterUninstall');
 		}
 	}
 }
