@@ -21,7 +21,7 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace YourVendor\YourExtension\Service;
+namespace Gilbertsoft\Lib\Service;
 
 
 /**
