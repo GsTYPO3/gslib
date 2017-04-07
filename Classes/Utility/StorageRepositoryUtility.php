@@ -123,7 +123,7 @@ class StorageRepositoryUtility
 	public static function findStorageRepository($name)
 	{
 		/** @var $storageObjects \TYPO3\CMS\Core\Resource\ResourceStorage[] */
-		$storageObjects = self::getStorageRepository->findAll();
+		$storageObjects = self::getStorageRepository()->findAll();
 
 		if (isset($storageObjects)) {
 			foreach ($storageObjects as $storage) {
