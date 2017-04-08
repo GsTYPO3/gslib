@@ -44,17 +44,17 @@ class FlashMessageUtility
 	/**
 	 * Returns the Flash Message Service
 	 *
-	 * @param string $flashMessageServiceClass name of the class to instantiate by the first call, defaults to \TYPO3\CMS\Core\Messaging\FlashMessageService
+	 * @param string $serviceClass name of the class to instantiate by the first call, defaults to \TYPO3\CMS\Core\Messaging\FlashMessageService
 	 * @return \TYPO3\CMS\Core\Messaging\FlashMessageService
 	 */
-	public static function getFlashMessageService($flashMessageServiceClass = '')
+	public static function getFlashMessageService($serviceClass = '')
 	{
 		if (self::$flashMessageService === null) {
-			if (!is_string($flashMessageServiceClass) || empty($flashMessageServiceClass)) {
-				$flashMessageServiceClass = FlashMessageService::class;
+			if (!is_string($serviceClass) || empty($serviceClass)) {
+				$serviceClass = FlashMessageService::class;
 			}
 			// cache the object for performance-reasons
-			self::$flashMessageService = GeneralUtility::makeInstance($flashMessageServiceClass);
+			self::$flashMessageService = GeneralUtility::makeInstance($serviceClass);
 		}
 		return self::$flashMessageService;
 	}
@@ -62,31 +62,31 @@ class FlashMessageUtility
 	/**
 	 * Returns the Flash Message Queue
 	 *
-	 * @param string $queueIdentifier Queue-identifier
+	 * @param string $queueId Queue-identifier
 	 * @return \TYPO3\CMS\Core\Messaging\FlashMessageQueue
 	 */
-	public static function getFlashMessageQueue($extensionKey, $queueIdentifier = '')
+	public static function getFlashMessageQueue($extensionKey, $queueId = '')
 	{
-		if (!is_string($queueIdentifier) || empty($queueIdentifier)) {
+		if (!is_string($queueId) || empty($queueId)) {
 			if (!is_string($extensionKey) || empty($extensionKey)) {
 				throw new \InvalidArgumentException('$extensionKey must be a non empty string.', 1491502264);
 			}
-			$queueIdentifier = 'gslib.flashmessages.' . $extensionKey;
+			$queueId = 'gslib.flashmessages.' . $extensionKey;
 		}
-		return self::getFlashMessageService()->getMessageQueueByIdentifier($queueIdentifier);
+		return self::getFlashMessageService()->getMessageQueueByIdentifier($queueId);
 	}
 
 	/**
 	 * Adds a Flash Message to the Flash Message Queue
 	 *
 	 * @param \TYPO3\CMS\Core\Messaging\FlashMessage $flashMessage
-	 * @param string $queueIdentifier Queue-identifier
+	 * @param string $queueId Queue-identifier
 	 * @return void
 	 */
-	public static function addFlashMessageToQueue(FlashMessage $flashMessage, $extensionKey, $queueIdentifier = '')
+	public static function addFlashMessageToQueue(FlashMessage $flashMessage, $extensionKey, $queueId = '')
 	{
 		if ($flashMessage) {
-			self::getFlashMessageQueue($extensionKey, $queueIdentifier)->enqueue($flashMessage);
+			self::getFlashMessageQueue($extensionKey, $queueId)->enqueue($flashMessage);
 		}
 	}
 
@@ -98,26 +98,26 @@ class FlashMessageUtility
 	 * @param string $title Optional message title.
 	 * @param int $severity Optional severity, must be either of one of \TYPO3\CMS\Core\Messaging\FlashMessage constants
 	 * @param bool $storeInSession Optional, defines whether the message should be stored in the session or only for one request (default)
-	 * @param string $queueIdentifier Queue-identifier
-	 * @param string $flashMessageClass Optional name of the class to instantiate, defaults to \TYPO3\CMS\Core\Messaging\FlashMessage
+	 * @param string $queueId Queue-identifier
+	 * @param string $messageClass Optional name of the class to instantiate, defaults to \TYPO3\CMS\Core\Messaging\FlashMessage
 	 * @return void
 	 */
-	public static function showFlashMessage($extensionKey, $message, $title = '', $severity = FlashMessage::OK, $storeInSession = true, $queueIdentifier = '', $flashMessageClass = '')
+	public static function showFlashMessage($extensionKey, $message, $title = '', $severity = FlashMessage::OK, $storeInSession = true, $queueId = '', $messageClass = '')
 	{
 		if (is_string($message) || !empty($message)) {
-			if (!is_string($flashMessageClass) || empty($flashMessageClass)) {
-				$flashMessageClass = FlashMessage::class;
+			if (!is_string($messageClass) || empty($messageClass)) {
+				$messageClass = FlashMessage::class;
 			}
 			self::addFlashMessageToQueue(
 				GeneralUtility::makeInstance(
-					$flashMessageClass,
+					$messageClass,
 					$message,
 					$title,
 					$severity,
 					$storeInSession
 				), 
 				$extensionKey,
-				$queueIdentifier
+				$queueId
 			);
 		}
 	}
