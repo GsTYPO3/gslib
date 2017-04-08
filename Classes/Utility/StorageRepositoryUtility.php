@@ -89,7 +89,9 @@ class StorageRepositoryUtility
 	/**
 	 * Creates a local storage if not exists.
 	 *
+	 * @param string $extensionKey
 	 * @param string $name Local storage name
+	 * @param string $message Optional message
 	 * @return NULL|int Uid of the inserted or found record
 	 * @throws \InvalidArgumentException
 	 */
@@ -110,14 +112,14 @@ class StorageRepositoryUtility
 			return null;
 		}
 
-		$message = (is_string($message) && !empty($message) ? ' ' . $message : '');
+		$addMessage = (is_string($message) && !empty($message) ? ' ' . $message : '');
 		/** @var $storage \TYPO3\CMS\Core\Resource\ResourceStorage */
 		$storage = self::findLocalStorage($name);
 
 		if ($storage !== null) {
 			FlashMessageUtility::showFlashMessage(
 				$extensionKey,
-				'Local storage ' . $name . ' was found.' . $message,
+				'Local storage ' . $name . ' was found.' . $addMessage,
 				'Local storage found',
 				FlashMessage::NOTICE
 			);
@@ -129,13 +131,13 @@ class StorageRepositoryUtility
 			$name . self::STORAGE_SUFFIX,
 			$name,
 			'relative',
-			'This is the local ' . $name . '/ directory. This storage mount has been created automatically by ' . $extensionKey . '.' . $message,
+			'This is the local ' . $name . '/ directory. This storage mount has been created automatically by ' . $extensionKey . '.' . $addMessage,
 			false
 		);
 
 		FlashMessageUtility::showFlashMessage(
 			$extensionKey,
-			'Local storage ' . $name . ' successfully created.' . $message,
+			'Local storage ' . $name . ' successfully created.' . $addMessage,
 			'Local storage created'
 		);
 
@@ -145,6 +147,7 @@ class StorageRepositoryUtility
 	/**
 	 * Removes a local storage.
 	 *
+	 * @param string $extensionKey
 	 * @param string $name Local storage name
 	 * @return void
 	 * @throws \InvalidArgumentException
