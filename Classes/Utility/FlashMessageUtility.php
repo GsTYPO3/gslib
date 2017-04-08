@@ -93,13 +93,13 @@ class FlashMessageUtility
 	/**
 	 * Create a Flash Message and add it to the Queue
 	 *
+	 * @param string $extensionKey
 	 * @param string $message The message.
 	 * @param string $title Optional message title.
 	 * @param int $severity Optional severity, must be either of one of \TYPO3\CMS\Core\Messaging\FlashMessage constants
 	 * @param bool $storeInSession Optional, defines whether the message should be stored in the session or only for one request (default)
 	 * @param string $queueIdentifier Queue-identifier
 	 * @param string $flashMessageClass Optional name of the class to instantiate, defaults to \TYPO3\CMS\Core\Messaging\FlashMessage
-	 * @param string $extensionKey
 	 * @return void
 	 */
 	public static function showFlashMessage($extensionKey, $message, $title = '', $severity = FlashMessage::OK, $storeInSession = true, $queueIdentifier = '', $flashMessageClass = '')
