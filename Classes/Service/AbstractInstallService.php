@@ -78,12 +78,10 @@ abstract class AbstractInstallService
 	 * @param string $title Optional message title.
 	 * @param int $severity Optional severity, must be either of one of \TYPO3\CMS\Core\Messaging\FlashMessage constants
 	 * @param bool $storeInSession Optional, defines whether the message should be stored in the session or only for one request (default)
-	 * @param string $identifier Queue-identifier
-	 * @param string $className name of the class to instantiate, defaults to \TYPO3\CMS\Core\Messaging\FlashMessage
 	 * @return void
 	 */
-	protected function showFlashMessage($message, $title = '', $severity = FlashMessage::OK, $storeInSession = true, $identifier = '', $className = '')
+	protected function showFlashMessage($message, $title = '', $severity = FlashMessage::OK, $storeInSession = true)
 	{
-		return FlashMessageUtility::showFlashMessage($this->extensionKey, $message, $title, $severity, $storeInSession, $identifier, $className);
+		return FlashMessageUtility::showFlashMessage($this->extensionKey, $message, $title, $severity, $storeInSession);
 	}
 }

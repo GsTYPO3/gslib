@@ -105,8 +105,7 @@ class FlashMessageUtility
 					$severity,
 					$storeInSession
 				), 
-				$extensionKey,
-				''
+				$extensionKey
 			);
 		}
 	}
