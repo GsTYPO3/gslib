@@ -42,78 +42,13 @@ class StorageRepositoryUtility
 	const STORAGE_SUFFIX = '/ (auto-created)';
 
 	/**
-	 * Creates a local storage if not exists.
+	 * Get the storage repository
 	 *
-	 * @param string $name Local storage name
-	 * @return void
+	 * @return \TYPO3\CMS\Core\Resource\StorageRepository
 	 */
-	public static function createLocalStorage($extensionKey, $name, $message = '')
+	public static function getStorageRepository()
 	{
-		if (!is_string($extensionKey) || empty($extensionKey)) {
-			throw new \InvalidArgumentException('$extensionKey must be a non empty string.', 1491580810);
-		}
-
-		/** @var $storage \TYPO3\CMS\Core\Resource\ResourceStorage */
-		$storage = self::findStorageRepository($name);
-
-		if ($storage === null)
-		{
-			// create the directory if missing
-			if (!@is_dir(PATH_site . $name . '/')) {
-				// If the directory is missing, try to create it
-				GeneralUtility::mkdir(PATH_site . $name . '/');
-			}
-
-			// create the Resource Storage 
-			self::getStorageRepository()->createLocalStorage(
-				$name . self::STORAGE_SUFFIX,
-				$name,
-				'relative',
-				'This is the local ' . $name . '/ directory. This storage mount has been created automatically by ' . $extensionKey . '.' . (is_string($message) && !empty($message) ? ' ' . $message : ''),
-				false
-			);
-
-			// add Flash Message that the repository has been created
-			FlashMessageUtility::showFlashMessage(
-				$extensionKey,
-				'Local storage ' . $name . ' successfully created.' . (is_string($message) && !empty($message) ? ' ' . $message : ''),
-				'Local storage created'
-			);
-		} else {
-			// add Flash Message that the repository exists 
-			FlashMessageUtility::showFlashMessage(
-				$extensionKey,
-				'Local storage ' . $name . ' was found.' . (is_string($message) && !empty($message) ? ' ' . $message : ''),
-				'Local storage found',
-				FlashMessage::NOTICE
-			);
-		}
-	}
-
-	/**
-	 * Removes a local storage.
-	 *
-	 * @param string $name Local storage name
-	 * @return void
-	 */
-	public static function removeLocalStorage($extensionKey, $name)
-	{
-		if (!is_string($extensionKey) || empty($extensionKey)) {
-			throw new \InvalidArgumentException('$extensionKey must be a non empty string.', 1491580839);
-		}
-
-		/** @var $storage \TYPO3\CMS\Core\Resource\ResourceStorage */
-		$storage = self::findStorageRepository($name);
-
-		if ($storage !== null) {
-			// add Flash Message that the repository must be removed by admin
-			FlashMessageUtility::showFlashMessage(
-				$extensionKey,
-				'Local storage ' . $name . ' must be removed by an admin from the root line in the backend and web root directory.',
-				'Remove local storage',
-				FlashMessage::NOTICE
-			);
-		}
+		return GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\StorageRepository::class);
 	}
 
 	/**
@@ -122,14 +57,14 @@ class StorageRepositoryUtility
 	 * @param string $name Local storage name
 	 * @return NULL|\TYPO3\CMS\Core\Resource\ResourceStorage
 	 */
-	public static function findStorageRepository($name)
+	public static function findLocalStorage($name)
 	{
 		/** @var $storageObjects \TYPO3\CMS\Core\Resource\ResourceStorage[] */
-		$storageObjects = self::getStorageRepository()->findAll();
+		$storageObjects = self::getStorageRepository()->findByStorageType('Local');
 
 		if (isset($storageObjects)) {
 			foreach ($storageObjects as $storage) {
-				if ($storage->getConfiguration()['basePath'] == $name . '/') {
+				if (isset($storage->getConfiguration()['basePath']) && ($storage->getConfiguration()['basePath'] == rtrim($name, '/') . '/')) {
 					return $storage;
 				}
 			}
@@ -139,12 +74,103 @@ class StorageRepositoryUtility
 	}
 
 	/**
-	 * Get the storage repository
+	 * Creates a directory in the web root if it is not existing.
 	 *
-	 * @return \TYPO3\CMS\Core\Resource\StorageRepository
+	 * @param string $name Relative path to folder from web root, see PHP mkdir() function. Removes trailing slash internally.
+	 * @return bool TRUE if mkdir went well!
 	 */
-	protected static function getStorageRepository()
+	public static function createDirectoryAtWebRoot($name)
 	{
-		return GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\StorageRepository::class);
+		if (!@is_dir(PATH_site . $name)) {
+			return GeneralUtility::mkdir(PATH_site . $name);
+		}
+
+		return true;
+	}
+
+	/**
+	 * Creates a local storage if not exists.
+	 *
+	 * @param string $name Local storage name
+	 * @return NULL|int Uid of the inserted or found record
+	 * @throws \InvalidArgumentException
+	 */
+	public static function createLocalStorage($extensionKey, $name, $message = '')
+	{
+		if (!is_string($extensionKey) || empty($extensionKey)) {
+			throw new \InvalidArgumentException('$extensionKey must be a non empty string.', 1491580810);
+		}
+
+		if (!is_string($name) || empty($name)) {
+			throw new \InvalidArgumentException('$name must be a non empty string.', 1491681665);
+		}
+
+		if (self::createDirectoryAtWebRoot($name) !== true) {
+			FlashMessageUtility::showFlashMessage(
+				$extensionKey,
+				'Local storage ' . $name . ' could not be created!',
+				'Local storage not created',
+				FlashMessage::WARNING
+			);
+
+			return null;
+		}
+
+		/** @var $storage \TYPO3\CMS\Core\Resource\ResourceStorage */
+		$storage = self::findLocalStorage($name);
+
+		if ($storage !== null) {
+			FlashMessageUtility::showFlashMessage(
+				$extensionKey,
+				'Local storage ' . $name . ' was found.' . (is_string($message) && !empty($message) ? ' ' . $message : ''),
+				'Local storage found',
+				FlashMessage::NOTICE
+			);
+
+			return $storage->getUid();
+		}
+
+		$uid = self::getStorageRepository()->createLocalStorage(
+			$name . self::STORAGE_SUFFIX,
+			$name,
+			'relative',
+			'This is the local ' . $name . '/ directory. This storage mount has been created automatically by ' . $extensionKey . '.' . (is_string($message) && !empty($message) ? ' ' . $message : ''),
+			false
+		);
+
+		FlashMessageUtility::showFlashMessage(
+			$extensionKey,
+			'Local storage ' . $name . ' successfully created.' . (is_string($message) && !empty($message) ? ' ' . $message : ''),
+			'Local storage created'
+		);
+
+		return $uid;
+	}
+
+	/**
+	 * Removes a local storage.
+	 *
+	 * @param string $name Local storage name
+	 * @return void
+	 * @throws \InvalidArgumentException
+	 */
+	public static function removeLocalStorage($extensionKey, $name)
+	{
+		if (!is_string($extensionKey) || empty($extensionKey)) {
+			throw new \InvalidArgumentException('$extensionKey must be a non empty string.', 1491580839);
+		}
+
+		if (!is_string($name) || empty($name)) {
+			throw new \InvalidArgumentException('$name must be a non empty string.', 1491682406);
+		}
+
+		if (self::findLocalStorage($name) !== null) {
+			FlashMessageUtility::showFlashMessage(
+				$extensionKey,
+				'Local storage ' . $name . ' must be removed by an admin from the root line in the backend and web root directory.',
+				'Remove local storage',
+				FlashMessage::NOTICE
+			);
+		}
 	}
 }
