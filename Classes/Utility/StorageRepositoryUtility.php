@@ -62,11 +62,9 @@ class StorageRepositoryUtility
 		/** @var $storageObjects \TYPO3\CMS\Core\Resource\ResourceStorage[] */
 		$storageObjects = self::getStorageRepository()->findByStorageType('Local');
 
-		if (isset($storageObjects)) {
-			foreach ($storageObjects as $storage) {
-				if (isset($storage->getConfiguration()['basePath']) && ($storage->getConfiguration()['basePath'] == rtrim($name, '/') . '/')) {
-					return $storage;
-				}
+		foreach ($storageObjects as $storage) {
+			if (isset($storage->getConfiguration()['basePath']) && ($storage->getConfiguration()['basePath'] == rtrim($name, '/') . '/')) {
+				return $storage;
 			}
 		}
 
@@ -97,10 +95,6 @@ class StorageRepositoryUtility
 	 */
 	public static function createLocalStorage($extensionKey, $name, $message = '')
 	{
-		if (!is_string($extensionKey) || empty($extensionKey)) {
-			throw new \InvalidArgumentException('$extensionKey must be a non empty string.', 1491580810);
-		}
-
 		if (!is_string($name) || empty($name)) {
 			throw new \InvalidArgumentException('$name must be a non empty string.', 1491681665);
 		}
@@ -116,13 +110,14 @@ class StorageRepositoryUtility
 			return null;
 		}
 
+		$message = (is_string($message) && !empty($message) ? ' ' . $message : '');
 		/** @var $storage \TYPO3\CMS\Core\Resource\ResourceStorage */
 		$storage = self::findLocalStorage($name);
 
 		if ($storage !== null) {
 			FlashMessageUtility::showFlashMessage(
 				$extensionKey,
-				'Local storage ' . $name . ' was found.' . (is_string($message) && !empty($message) ? ' ' . $message : ''),
+				'Local storage ' . $name . ' was found.' . $message,
 				'Local storage found',
 				FlashMessage::NOTICE
 			);
@@ -134,13 +129,13 @@ class StorageRepositoryUtility
 			$name . self::STORAGE_SUFFIX,
 			$name,
 			'relative',
-			'This is the local ' . $name . '/ directory. This storage mount has been created automatically by ' . $extensionKey . '.' . (is_string($message) && !empty($message) ? ' ' . $message : ''),
+			'This is the local ' . $name . '/ directory. This storage mount has been created automatically by ' . $extensionKey . '.' . $message,
 			false
 		);
 
 		FlashMessageUtility::showFlashMessage(
 			$extensionKey,
-			'Local storage ' . $name . ' successfully created.' . (is_string($message) && !empty($message) ? ' ' . $message : ''),
+			'Local storage ' . $name . ' successfully created.' . $message,
 			'Local storage created'
 		);
 
@@ -156,10 +151,6 @@ class StorageRepositoryUtility
 	 */
 	public static function removeLocalStorage($extensionKey, $name)
 	{
-		if (!is_string($extensionKey) || empty($extensionKey)) {
-			throw new \InvalidArgumentException('$extensionKey must be a non empty string.', 1491580839);
-		}
-
 		if (!is_string($name) || empty($name)) {
 			throw new \InvalidArgumentException('$name must be a non empty string.', 1491682406);
 		}
