@@ -59,6 +59,7 @@ abstract class AbstractInstallService
 	 * Executes the setup tasks if extension is installed.
 	 *
 	 * @param string $extensionKey Installed extension key
+	 * @return void
 	 */
 	abstract public function afterInstall($extensionKey);
 
@@ -66,6 +67,7 @@ abstract class AbstractInstallService
 	 * Executes the setup tasks if extension is uninstalled.
 	 *
 	 * @param string $extensionKey Uninstalled extension key
+	 * @return void
 	 */
 	abstract public function afterUninstall($extensionKey);
 

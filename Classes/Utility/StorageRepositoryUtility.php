@@ -45,6 +45,7 @@ class StorageRepositoryUtility
 	 * Creates a local storage if not exists.
 	 *
 	 * @param string $name Local storage name
+	 * @return void
 	 */
 	public static function createLocalStorage($extensionKey, $name, $message = '')
 	{
@@ -93,6 +94,7 @@ class StorageRepositoryUtility
 	 * Removes a local storage.
 	 *
 	 * @param string $name Local storage name
+	 * @return void
 	 */
 	public static function removeLocalStorage($extensionKey, $name)
 	{
@@ -127,7 +129,6 @@ class StorageRepositoryUtility
 
 		if (isset($storageObjects)) {
 			foreach ($storageObjects as $storage) {
-				//if ($storage->getName() == $name . self::STORAGE_SUFFIX) {
 				if ($storage->getConfiguration()['basePath'] == $name . '/') {
 					return $storage;
 				}
