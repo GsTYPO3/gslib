@@ -12,7 +12,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * For the full license information, please read the LICENSE file that
@@ -24,7 +24,7 @@
 $EM_CONF[$_EXTKEY] = [
 	'title' => 'GS Library',
 	'description' => 'GS Library is a collection of utility functions, base classes and other templates for the usage in other extensions.',
-	'version' => '0.0.1',
+	'version' => '0.0.2',
 	'category' => 'misc',
 	'constraints' => [
 		'depends' => [
