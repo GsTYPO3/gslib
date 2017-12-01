@@ -1,4 +1,5 @@
 <?php
+namespace Gilbertsoft\Lib\Service;
 
 /*
  * This file is part of the "GS Library" Extension for TYPO3 CMS.
@@ -21,67 +22,64 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace Gilbertsoft\Lib\Service;
-
-
 /**
  * Use declarations
  */
 use Gilbertsoft\Lib\Utility\FlashMessageUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 
-
 /**
  * GS Abstract Install Service class.
  */
 abstract class AbstractInstallService
 {
-	/**
-	 * @var string Extension key
-	 */
-	protected $extensionKey;
+    /**
+     * @var string Extension key
+     */
+    protected $extensionKey;
 
-	/**
-	 * Initializes the install service
-	 *
-	 * @param string $extensionKey Extension key
-	 * @throws InvalidArgumentException 
-	 */
-	public function __construct($extensionKey)
-	{
-		if (!is_string($extensionKey) || empty($extensionKey)) {
-			throw new \InvalidArgumentException('$extensionKey must be a non empty string.', 1491494798);
-		}
-		$this->extensionKey = $extensionKey;
-	}
+    /**
+     * Initializes the install service
+     *
+     * @param string $extensionKey Extension key
+     * @throws InvalidArgumentException 
+     */
+    public function __construct($extensionKey)
+    {
+        if (!is_string($extensionKey) || empty($extensionKey)) {
+            throw new \InvalidArgumentException('$extensionKey must be a non empty string.', 1491494798);
+        }
 
-	/**
-	 * Executes the setup tasks if extension is installed.
-	 *
-	 * @param string $extensionKey Installed extension key
-	 * @return void
-	 */
-	abstract public function afterInstall($extensionKey);
+        $this->extensionKey = $extensionKey;
+    }
 
-	/**
-	 * Executes the setup tasks if extension is uninstalled.
-	 *
-	 * @param string $extensionKey Uninstalled extension key
-	 * @return void
-	 */
-	abstract public function afterUninstall($extensionKey);
+    /**
+     * Executes the setup tasks if extension is installed.
+     *
+     * @param string $extensionKey Installed extension key
+     * @return void
+     */
+    abstract public function afterInstall($extensionKey);
 
-	/**
-	 * Create a Flash Message and add it to the Queue
-	 *
-	 * @param string $message The message.
-	 * @param string $title Optional message title.
-	 * @param int $severity Optional severity, must be either of one of \TYPO3\CMS\Core\Messaging\FlashMessage constants
-	 * @param bool $storeInSession Optional, defines whether the message should be stored in the session or only for one request (default)
-	 * @return void
-	 */
-	protected function showFlashMessage($message, $title = '', $severity = FlashMessage::OK, $storeInSession = true)
-	{
-		return FlashMessageUtility::showFlashMessage($this->extensionKey, $message, $title, $severity, $storeInSession);
-	}
+    /**
+     * Executes the setup tasks if extension is uninstalled.
+     *
+     * @param string $extensionKey Uninstalled extension key
+     * @return void
+     */
+    abstract public function afterUninstall($extensionKey);
+
+    /**
+     * Create a Flash Message and add it to the Queue
+     *
+     * @param string $message The message.
+     * @param string $title Optional message title.
+     * @param int $severity Optional severity, must be either of one of \TYPO3\CMS\Core\Messaging\FlashMessage constants
+     * @param bool $storeInSession Optional, defines whether the message should be stored in the session or only for one request (default)
+     * @return void
+     */
+    protected function showFlashMessage($message, $title = '', $severity = FlashMessage::OK, $storeInSession = true)
+    {
+        return FlashMessageUtility::showFlashMessage($this->extensionKey, $message, $title, $severity, $storeInSession);
+    }
 }

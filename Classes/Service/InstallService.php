@@ -1,4 +1,5 @@
 <?php
+namespace Gilbertsoft\Lib\Service;
 
 /*
  * This file is part of the "GS Library" Extension for TYPO3 CMS.
@@ -21,14 +22,10 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace Gilbertsoft\Lib\Service;
-
-
 /**
  * Use declarations
  */
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-
 
 /**
  * GS Install Service class.

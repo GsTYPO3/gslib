@@ -1,4 +1,5 @@
 <?php
+namespace Gilbertsoft\Lib\Utility;
 
 /*
  * This file is part of the "GS Library" Extension for TYPO3 CMS.
@@ -21,16 +22,12 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace Gilbertsoft\Lib\Utility;
-
-
 /**
  * Use declarations
  */
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-
 
 /**
  * GS Flash Message Utility class.
