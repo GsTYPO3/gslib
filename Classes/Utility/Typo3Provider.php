@@ -23,19 +23,19 @@ namespace Gilbertsoft\Lib\Utility;
  */
 
 /**
- * Provider class.
+ * TYPO3 Provider class.
  *
  * USE:
  * The class is intended to be used without creating an instance of it.
- * So: Do not instantiate - call functions with "\Gilbertsoft\TYPO3\Warranty\Utility\Provider::" prefixed the function name.
- * So use \Gilbertsoft\TYPO3\Warranty\Utility\Provider::[method-name] to refer to the functions, eg. '\Gilbertsoft\TYPO3\Warranty\Utility\Provider::getName()'
+ * So: Do not instantiate - call functions with "\Gilbertsoft\TYPO3\Warranty\Utility\Typo3Provider::" prefixed the function name.
+ * So use \Gilbertsoft\TYPO3\Warranty\Utility\Typo3Provider::[method-name] to refer to the functions, eg. '\Gilbertsoft\TYPO3\Warranty\Utility\Typo3Provider::getName()'
  */
-class Provider
+class Typo3Provider
 {
     /**
-     * @var string
+     * @var string $name
      */
-    protected static $name = null;
+    private static $name = null;
 
     /**
      * Returns the trimmed and lowered provider name loaded by getenv.

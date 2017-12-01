@@ -30,7 +30,7 @@ namespace Gilbertsoft\Lib\Extension;
  * So: Do not instantiate - call functions with "\Gilbertsoft\Warranty\Utility\Adapter::" prefixed the function name.
  * So use \Gilbertsoft\Warranty\Utility\Adapter::[method-name] to refer to the functions, eg. '\Gilbertsoft\Warranty\Utility\Adapter::run($_EXTNAME)'
  */
-interface ExtensionConfigInterface
+interface ConfiguratorInterface
 {
     /**
      * Called from ext_localconf.php

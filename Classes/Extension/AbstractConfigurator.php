@@ -25,7 +25,7 @@ namespace Gilbertsoft\Lib\Extension;
 /**
  * Use declarations
  */
-use Gilbertsoft\Lib\Extension\ExtensionConfigInterface;
+use Gilbertsoft\Lib\Extension\ConfiguratorInterface;
 use Gilbertsoft\Lib\Utility\Typo3Mode;
 use Gilbertsoft\Lib\Utility\Typo3Version;
 
@@ -35,7 +35,7 @@ use Gilbertsoft\Lib\Utility\Typo3Version;
  * Used as base class for the extension configuration. There are various 
  * often used functions available.
  */
-abstract class AbstractExtensionConfig implements ExtensionConfigInterface
+abstract class AbstractConfigurator implements ConfiguratorInterface
 {
     /**
      * @see Typo3Mode::isBackend()
