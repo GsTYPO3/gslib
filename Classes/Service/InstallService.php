@@ -25,12 +25,13 @@ namespace Gilbertsoft\Lib\Service;
 /**
  * Use declarations
  */
+use Gilbertsoft\Lib\Service\AbstractInstallService;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 /**
  * GS Install Service class.
  */
-class InstallService extends \Gilbertsoft\Lib\Service\AbstractInstallService
+class InstallService extends AbstractInstallService
 {
 	/**
 	 * Executes the setup tasks if extension is installed.
