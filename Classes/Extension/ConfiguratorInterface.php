@@ -35,16 +35,18 @@ interface ConfiguratorInterface
     /**
      * Called from ext_localconf.php
      *
+     * @param string $extensionKey Extension key
      * @return void
      * @api
      */
-    public static function localconf($extKey);
+    public static function localconf($extensionKey);
 
     /**
      * Called from ext_tables.php
      *
+     * @param string $extensionKey Extension key
      * @return void
      * @api
      */
-    public static function tables($extKey);
+    public static function tables($extensionKey);
 }
