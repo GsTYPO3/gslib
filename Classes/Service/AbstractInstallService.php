@@ -26,6 +26,7 @@ namespace Gilbertsoft\Lib\Service;
  * Use declarations
  */
 use Gilbertsoft\Lib\Utility\FlashMessageUtility;
+use Gilbertsoft\Lib\Utility\Typo3Mode;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 /**
@@ -37,6 +38,36 @@ abstract class AbstractInstallService
      * @var string Extension key
      */
     protected $extensionKey;
+
+    /**
+     * Called from ext_localconf.php, to be implemented in derrived classes.
+     *
+     * @param string $extensionKey Extension key
+     * @return null | AbstractInstallService Instance of this class
+     */
+    public static function registerService($extensionKey)
+    {
+        if (Typo3Mode::isBackend()) {
+            $signalSlot = GeneralUtility::makeInstance(self, $extensionKey);
+            $signalSlotDispatcher = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
+            $signalSlotDispatcher->connect(
+                \TYPO3\CMS\Extensionmanager\Utility\InstallUtility::class,
+                'afterExtensionInstall',
+                $signalSlot,
+                'afterInstall'
+            );
+            $signalSlotDispatcher->connect(
+                \TYPO3\CMS\Extensionmanager\Utility\InstallUtility::class,
+                'afterExtensionUninstall',
+                $signalSlot,
+                'afterUninstall'
+            );
+
+            return $signalSlot;
+        }
+
+        return null;
+    }
 
     /**
      * Initializes the install service
