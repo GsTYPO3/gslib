@@ -38,6 +38,14 @@ use Gilbertsoft\Lib\Utility\Typo3Version;
 abstract class AbstractConfigurator implements ConfiguratorInterface
 {
     /**
+     * @see Typo3Mode::isFrontend()
+     */
+    protected static function isFrontend()
+    {
+        return Typo3Mode::isFrontend();
+    }
+
+    /**
      * @see Typo3Mode::isBackend()
      */
     protected static function isBackend()
@@ -46,11 +54,27 @@ abstract class AbstractConfigurator implements ConfiguratorInterface
     }
 
     /**
-     * @see Typo3Mode::isFrontend()
+     * @see Typo3Mode::isCli()
      */
-    protected static function isFrontend()
+    protected static function isCli()
     {
-        return Typo3Mode::isFrontend();
+        return Typo3Mode::isCli();
+    }
+
+    /**
+     * @see Typo3Mode::isAjax()
+     */
+    protected static function isAjax()
+    {
+        return Typo3Mode::isAjax();
+    }
+
+    /**
+     * @see Typo3Mode::isInstall()
+     */
+    protected static function isInstall()
+    {
+        return Typo3Mode::isInstall();
     }
 
     /**
@@ -72,16 +96,18 @@ abstract class AbstractConfigurator implements ConfiguratorInterface
     /**
      * Called from ext_localconf.php, to be implemented in derrived classes.
      *
+     * @param string $extensionKey Extension key
      * @return void
      * @api
      */
-    abstract public static function localconf($extKey);
+    abstract public static function localconf($extensionKey);
 
     /**
      * Called from ext_tables.php, to be implemented in derrived classes.
      *
+     * @param string $extensionKey Extension key
      * @return void
      * @api
      */
-    abstract public static function tables($extKey);
+    abstract public static function tables($extensionKey);
 }
