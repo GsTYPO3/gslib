@@ -28,6 +28,7 @@ namespace Gilbertsoft\Lib\Service;
 use Gilbertsoft\Lib\Utility\FlashMessageUtility;
 use Gilbertsoft\Lib\Utility\Typo3Mode;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * GS Abstract Install Service class.
