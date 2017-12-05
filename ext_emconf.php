@@ -24,7 +24,7 @@
 $EM_CONF[$_EXTKEY] = [
     'title' => 'GS Library',
     'description' => 'GS Library is a collection of utility functions, base classes and other templates for the usage in other extensions.',
-    'version' => '0.0.3',
+    'version' => '0.0.4',
     'category' => 'misc',
     'constraints' => [
         'depends' => [
