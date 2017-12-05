@@ -49,7 +49,7 @@ abstract class AbstractInstallService
     public static function registerService($extensionKey)
     {
         if (Typo3Mode::isBackend()) {
-            $signalSlot = GeneralUtility::makeInstance(self, $extensionKey);
+            $signalSlot = GeneralUtility::makeInstance(static::class, $extensionKey);
             $signalSlotDispatcher = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
             $signalSlotDispatcher->connect(
                 \TYPO3\CMS\Extensionmanager\Utility\InstallUtility::class,
