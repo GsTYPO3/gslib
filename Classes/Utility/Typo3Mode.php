@@ -44,6 +44,17 @@ class Typo3Mode
     }
 
     /**
+     * Returns TRUE if request type is set.
+     *
+     * @return bool
+     * @api
+     */
+    public static function checkRequestType()
+    {
+        return defined('TYPO3_REQUESTTYPE');
+    }
+
+    /**
      * Returns TRUE if called in frontend mode.
      *
      * @return bool
@@ -51,7 +62,7 @@ class Typo3Mode
      */
     public static function isFrontend()
     {
-        return self::checkMode() && (TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_FE);
+        return (self::checkMode() && (TYPO3_MODE == 'FE')) || (self::checkRequestType() && (TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_FE));
     }
 
     /**
@@ -62,7 +73,7 @@ class Typo3Mode
      */
     public static function isBackend()
     {
-        return self::checkMode() && (TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_BE);
+        return (self::checkMode() && (TYPO3_MODE == 'BE')) || (self::checkRequestType() && (TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_BE));
     }
 
     /**
@@ -73,7 +84,7 @@ class Typo3Mode
      */
     public static function isCli()
     {
-        return self::checkMode() && (TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_CLI);
+        return (defined('TYPO3_cliMode') && TYPO3_cliMode === true) || (self::checkRequestType() && (TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_CLI));
     }
 
     /**
@@ -84,7 +95,7 @@ class Typo3Mode
      */
     public static function isAjax()
     {
-        return self::checkMode() && (TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_AJAX);
+        return ($GLOBALS['TYPO3_AJAX']) || (self::checkRequestType() && (TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_AJAX));
     }
 
     /**
@@ -95,7 +106,7 @@ class Typo3Mode
      */
     public static function isInstall()
     {
-        return self::checkMode() && (TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL);
+        return (defined('TYPO3_enterInstallScript') && TYPO3_enterInstallScript) || (self::checkRequestType() && (TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL));
     }
 
     /**
