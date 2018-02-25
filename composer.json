@@ -1,7 +1,8 @@
 {
-	"name": "gilbertsoft/gslib",
-	"type": "typo3-cms-extension",
+	"name": "gilbertsoft/typo3-gslib",
 	"description": "GS Library is a collection of utility functions, base classes and other templates for the usage in other extensions.",
+	"version": "0.0.5",
+	"type": "typo3-cms-extension",
 	"keywords": [
 		"TYPO3",
 		"extension",
@@ -19,7 +20,7 @@
 			"homepage": "http://gilbertsoft.org"
 		}
 	],
-	"license": ["GPL-3.0+"],
+	"license": ["GPL-3.0-or-later"],
 	"require": {
 		"typo3/cms-core": "^6.2.0 || ^7.6.0 || ^8.7.0 || ^9"
 	},
