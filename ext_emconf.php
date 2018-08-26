@@ -24,15 +24,15 @@
 $EM_CONF[$_EXTKEY] = [
     'title' => 'GS Library',
     'description' => 'GS Library is a collection of utility functions, base classes and other templates for the usage in other extensions.',
-    'version' => '0.0.5',
+    'version' => '0.0.7',
     'category' => 'misc',
     'constraints' => [
         'depends' => [
-            'php' => '5.6.0-0.0.0',
-            'typo3' => '6.2.0-8.9.99'
+            'php' => '7.0.0-0.0.0',
+            'typo3' => '8.7.0-9.9.99',
         ],
         'conflicts' => [],
-        'suggests' => []
+        'suggests' => [],
     ],
     'state' => 'beta',
     'uploadfolder' => 0,
@@ -43,12 +43,12 @@ $EM_CONF[$_EXTKEY] = [
     'author_company' => 'Gilbertsoft',
     'autoload' => [
         'psr-4' => [
-            'Gilbertsoft\\Lib\\' => 'Classes'
-        ]
+            'Gilbertsoft\\Lib\\' => 'Classes',
+        ],
     ],
     'autoload-dev' => [
         'psr-4' => [
-            'Gilbertsoft\\Lib\\Tests\\' => 'Tests'
-        ]
-    ]
+            'Gilbertsoft\\Lib\\Tests\\' => 'Tests',
+        ],
+    ],
 ];
