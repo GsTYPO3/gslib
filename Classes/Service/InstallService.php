@@ -33,29 +33,29 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
  */
 class InstallService extends AbstractInstallService
 {
-	/**
-	 * Executes the setup tasks if extension is installed.
-	 *
-	 * @param string $extensionKey Installed extension key
-	 */
-	public function afterInstall($extensionKey)
-	{
-		if ($extensionKey == $this->extensionKey)
-		{
-			// insert custom code here
-		}
-	}
+    /**
+     * Executes the setup tasks if extension is installed.
+     *
+     * @param string $extensionKey Installed extension key
+     */
+    public function afterInstall($extensionKey)
+    {
+        if ($extensionKey == $this->extensionKey)
+        {
+            // insert custom code here
+        }
+    }
 
-	/**
-	 * Executes the setup tasks if extension is uninstalled.
-	 *
-	 * @param string $extensionKey Uninstalled extension key
-	 */
-	public function afterUninstall($extensionKey)
-	{
-		if ($extensionKey == $this->extensionKey)
-		{
-			// insert custom code here
-		}
-	}
+    /**
+     * Executes the setup tasks if extension is uninstalled.
+     *
+     * @param string $extensionKey Uninstalled extension key
+     */
+    public function afterUninstall($extensionKey)
+    {
+        if ($extensionKey == $this->extensionKey)
+        {
+            // insert custom code here
+        }
+    }
 }

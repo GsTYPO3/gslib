@@ -34,76 +34,76 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class FlashMessageUtility
 {
-	/**
-	 * @var \TYPO3\CMS\Core\Messaging\FlashMessageService
-	 */
-	protected static $flashMessageService = null;
-	/**
-	 * Returns the Flash Message Service
-	 *
-	 * @return \TYPO3\CMS\Core\Messaging\FlashMessageService
-	 */
-	public static function getFlashMessageService()
-	{
-		if (self::$flashMessageService === null) {
-			// cache the object for performance-reasons
-			self::$flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
-		}
-		return self::$flashMessageService;
-	}
+    /**
+     * @var \TYPO3\CMS\Core\Messaging\FlashMessageService
+     */
+    protected static $flashMessageService = null;
+    /**
+     * Returns the Flash Message Service
+     *
+     * @return \TYPO3\CMS\Core\Messaging\FlashMessageService
+     */
+    public static function getFlashMessageService()
+    {
+        if (self::$flashMessageService === null) {
+            // cache the object for performance-reasons
+            self::$flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
+        }
+        return self::$flashMessageService;
+    }
 
-	/**
-	 * Returns the Flash Message Queue
-	 *
-	 * @param string $extensionKey
-	 * @return \TYPO3\CMS\Core\Messaging\FlashMessageQueue
-	 * @throws \InvalidArgumentException
-	 */
-	public static function getFlashMessageQueue($extensionKey)
-	{
-		if (!is_string($extensionKey) || empty($extensionKey)) {
-			throw new \InvalidArgumentException('$extensionKey must be a non empty string.', 1491502264);
-		}
-		return self::getFlashMessageService()->getMessageQueueByIdentifier('gslib.flashmessages.' . $extensionKey);
-	}
+    /**
+     * Returns the Flash Message Queue
+     *
+     * @param string $extensionKey
+     * @return \TYPO3\CMS\Core\Messaging\FlashMessageQueue
+     * @throws \InvalidArgumentException
+     */
+    public static function getFlashMessageQueue($extensionKey)
+    {
+        if (!is_string($extensionKey) || empty($extensionKey)) {
+            throw new \InvalidArgumentException('$extensionKey must be a non empty string.', 1491502264);
+        }
+        return self::getFlashMessageService()->getMessageQueueByIdentifier('gslib.flashmessages.' . $extensionKey);
+    }
 
-	/**
-	 * Adds a Flash Message to the Flash Message Queue
-	 *
-	 * @param \TYPO3\CMS\Core\Messaging\FlashMessage $flashMessage
-	 * @param string $extensionKey
-	 * @return void
-	 */
-	public static function addFlashMessageToQueue(FlashMessage $flashMessage, $extensionKey)
-	{
-		if ($flashMessage) {
-			self::getFlashMessageQueue($extensionKey)->enqueue($flashMessage);
-		}
-	}
+    /**
+     * Adds a Flash Message to the Flash Message Queue
+     *
+     * @param \TYPO3\CMS\Core\Messaging\FlashMessage $flashMessage
+     * @param string $extensionKey
+     * @return void
+     */
+    public static function addFlashMessageToQueue(FlashMessage $flashMessage, $extensionKey)
+    {
+        if ($flashMessage) {
+            self::getFlashMessageQueue($extensionKey)->enqueue($flashMessage);
+        }
+    }
 
-	/**
-	 * Create a Flash Message and add it to the Queue
-	 *
-	 * @param string $extensionKey
-	 * @param string $message The message.
-	 * @param string $title Optional message title.
-	 * @param int $severity Optional severity, must be either of one of \TYPO3\CMS\Core\Messaging\FlashMessage constants
-	 * @param bool $storeInSession Optional, defines whether the message should be stored in the session or only for one request (default)
-	 * @return void
-	 */
-	public static function showFlashMessage($extensionKey, $message, $title = '', $severity = FlashMessage::OK, $storeInSession = true)
-	{
-		if (is_string($message) || !empty($message)) {
-			self::addFlashMessageToQueue(
-				GeneralUtility::makeInstance(
-					FlashMessage::class,
-					$message,
-					$title,
-					$severity,
-					$storeInSession
-				), 
-				$extensionKey
-			);
-		}
-	}
+    /**
+     * Create a Flash Message and add it to the Queue
+     *
+     * @param string $extensionKey
+     * @param string $message The message.
+     * @param string $title Optional message title.
+     * @param int $severity Optional severity, must be either of one of \TYPO3\CMS\Core\Messaging\FlashMessage constants
+     * @param bool $storeInSession Optional, defines whether the message should be stored in the session or only for one request (default)
+     * @return void
+     */
+    public static function showFlashMessage($extensionKey, $message, $title = '', $severity = FlashMessage::OK, $storeInSession = true)
+    {
+        if (is_string($message) || !empty($message)) {
+            self::addFlashMessageToQueue(
+                GeneralUtility::makeInstance(
+                    FlashMessage::class,
+                    $message,
+                    $title,
+                    $severity,
+                    $storeInSession
+                ), 
+                $extensionKey
+            );
+        }
+    }
 }

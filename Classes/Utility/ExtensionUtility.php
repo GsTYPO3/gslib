@@ -36,53 +36,53 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class ObjectUtility
 {
-	/**
-	 * Get Object Manager instance.
-	 *
-	 * @return \TYPO3\CMS\Extbase\Object\ObjectManager
-	 */
-	public static function getObjectManager()
-	{
-		return GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
-	}
+    /**
+     * Get Object Manager instance.
+     *
+     * @return \TYPO3\CMS\Extbase\Object\ObjectManager
+     */
+    public static function getObjectManager()
+    {
+        return GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
+    }
 
-	/**
-	 * Get Configuration Manager instance.
-	 *
-	 * @return \TYPO3\CMS\Extbase\Configuration\ConfigurationManager
-	 */
-	public static function getConfigurationManager()
-	{
-		return self::getObjectManager()->get(\TYPO3\CMS\Extbase\Configuration\ConfigurationManager::class);
-	}
+    /**
+     * Get Configuration Manager instance.
+     *
+     * @return \TYPO3\CMS\Extbase\Configuration\ConfigurationManager
+     */
+    public static function getConfigurationManager()
+    {
+        return self::getObjectManager()->get(\TYPO3\CMS\Extbase\Configuration\ConfigurationManager::class);
+    }
 
-	/**
-	 * Get Typoscript Service instance.
-	 *
-	 * @return \TYPO3\CMS\Extbase\Service\TyposcriptService
-	 */
-	public static function getTyposcriptService()
-	{
-		return self::getObjectManager()->get(\TYPO3\CMS\Extbase\Service\TyposcriptService::class);
-	}
+    /**
+     * Get Typoscript Service instance.
+     *
+     * @return \TYPO3\CMS\Extbase\Service\TyposcriptService
+     */
+    public static function getTyposcriptService()
+    {
+        return self::getObjectManager()->get(\TYPO3\CMS\Extbase\Service\TyposcriptService::class);
+    }
 
-	/**
-	 * Get Flex Form Service instance.
-	 *
-	 */
-	public static function getFlexFormService()
-	{
-	}
+    /**
+     * Get Flex Form Service instance.
+     *
      * @return \TYPO3\CMS\Core\Service\FlexFormService
+     */
+    public static function getFlexFormService()
+    {
         return self::getObjectManager()->get(\TYPO3\CMS\Core\Service\FlexFormService::class);
+    }
 
-	/**
-	 * Get Configuration Utility instance.
-	 *
-	 * @return \TYPO3\CMS\Extensionmanager\Utility\ConfigurationUtility
-	 */
-	public static function getConfigurationUtility()
-	{
-		return self::getObjectManager()->get(\TYPO3\CMS\Extensionmanager\Utility\ConfigurationUtility::class);
-	}
+    /**
+     * Get Configuration Utility instance.
+     *
+     * @return \TYPO3\CMS\Extensionmanager\Utility\ConfigurationUtility
+     */
+    public static function getConfigurationUtility()
+    {
+        return self::getObjectManager()->get(\TYPO3\CMS\Extensionmanager\Utility\ConfigurationUtility::class);
+    }
 }
