@@ -69,12 +69,12 @@ class ObjectUtility
 	/**
 	 * Get Flex Form Service instance.
 	 *
-	 * @return \TYPO3\CMS\Extbase\Service\FlexFormService
 	 */
 	public static function getFlexFormService()
 	{
-		return self::getObjectManager()->get(\TYPO3\CMS\Extbase\Service\FlexFormService::class);
 	}
+     * @return \TYPO3\CMS\Core\Service\FlexFormService
+        return self::getObjectManager()->get(\TYPO3\CMS\Core\Service\FlexFormService::class);
 
 	/**
 	 * Get Configuration Utility instance.
