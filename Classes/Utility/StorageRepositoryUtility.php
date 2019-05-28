@@ -76,8 +76,6 @@ class StorageRepositoryUtility
 	 */
 	public static function createDirectoryAtWebRoot($name)
 	{
-		if (!@is_dir(PATH_site . $name)) {
-			return GeneralUtility::mkdir(PATH_site . $name);
 		}
 
 		return true;
@@ -164,4 +162,6 @@ class StorageRepositoryUtility
 			);
 		}
 	}
+        if (!@is_dir(Environment::getPublicPath() . '/' . $name)) {
+            return GeneralUtility::mkdir(Environment::getPublicPath() . '/' . $name);
 }
